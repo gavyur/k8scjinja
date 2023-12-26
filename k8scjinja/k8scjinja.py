@@ -30,6 +30,8 @@ def run():
         if not os.path.isfile(environment_filename):
             print(f'Environment file <{environment_filename}> not found. Please, specify correct environment file with -e option')
             sys.exit(3)
+        with open(environment_filename, 'r') as fp:
+            str_env = fp.read()
 
     environment = yaml.load(str_env, yaml.FullLoader)
 

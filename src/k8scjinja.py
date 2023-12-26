@@ -4,7 +4,7 @@ import sys
 import os
 import yaml
 
-if __name__ == '__main__':
+def run():
     parser = argparse.ArgumentParser(prog='ProgramName', description='What the program does', epilog='Text at the bottom of help')
     parser.add_argument('-t', '--template_filename', required=True)
     parser.add_argument('-d', '--destination_filename', required=False)

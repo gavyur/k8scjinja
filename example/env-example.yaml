@@ -1,2 +1,7 @@
 host: localhost
 port: 22
+---
+port: 25
+---
+host2: localhost
+port2: {{ env.port + 2 }}

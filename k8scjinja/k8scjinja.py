@@ -30,6 +30,19 @@ class Environment:
         self.envs.append(environment)
 
 
+def render_file(env, filename):
+    with open(filename, 'r') as fp:
+        return render_template(env, fp.read())
+
+
+def render_template(env, template):
+    template = jinja2.Environment(loader=jinja2.BaseLoader).from_string(template)
+    return template.render(
+        env=env,
+        include=lambda filename: render_file(env, filename),
+    )
+
+
 def run():
     parser = argparse.ArgumentParser(prog='ProgramName', description='What the program does', epilog='Text at the bottom of help')
     parser.add_argument('-t', '--template_filename', required=True)
@@ -62,15 +75,12 @@ def run():
     envs = str_env.split('---')
     env = Environment()
     for env_part in envs:
-        template = jinja2.Environment(loader=jinja2.BaseLoader).from_string(env_part)
-        env_rendered = template.render(env=env)
+        env_rendered = render_template(env, env_part)
         yaml_env = yaml.load(env_rendered, yaml.FullLoader)
         env.add_environment(yaml_env)
     
     print(f'Rendering <{args.template_filename}>...', end=' ')
-    with open(args.template_filename, 'r') as fp:
-        rtemplate = jinja2.Environment(loader=jinja2.BaseLoader).from_string(fp.read())
-    data = rtemplate.render(env=env)
+    data = render_file(env, args.template_filename)
     print('done')
 
     destination_filename = args.destination_filename

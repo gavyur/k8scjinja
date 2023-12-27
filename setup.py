@@ -2,7 +2,7 @@ from setuptools import setup, find_packages
 
 setup(
     name='k8scjinja',
-    version='0.9.0',
+    version='0.10.0',
     author='Yury Gavrilov',
     author_email='public@igavrilov.ru',
     description='rendering jinja templates from any files using yaml-environment',

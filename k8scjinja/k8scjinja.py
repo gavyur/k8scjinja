@@ -14,6 +14,7 @@ class Environment:
     def __str__(self):
         for env in reversed(self.envs):
             return str(env)
+        return ''
     
     def __getattr__(self, name):
         new_envs = []
@@ -65,7 +66,7 @@ def run():
         env_rendered = template.render(env=env)
         yaml_env = yaml.load(env_rendered, yaml.FullLoader)
         env.add_environment(yaml_env)
-
+    
     print(f'Rendering <{args.template_filename}>...', end=' ')
     with open(args.template_filename, 'r') as fp:
         rtemplate = jinja2.Environment(loader=jinja2.BaseLoader).from_string(fp.read())

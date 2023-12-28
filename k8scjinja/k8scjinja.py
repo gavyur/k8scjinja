@@ -3,6 +3,7 @@ import argparse
 import sys
 import os
 import yaml
+import base64
 
 
 class Environment:
@@ -40,6 +41,7 @@ def render_template(env, template):
     return template.render(
         env=env,
         include=lambda filename: render_file(env, filename),
+        b64e=lambda string: base64.b64encode(string.encode()).decode(),
     )
 
 

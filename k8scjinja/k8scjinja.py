@@ -92,6 +92,8 @@ def run():
         else:
             destination_filename = f'{args.template_filename}.rendered'
     
+    if not data.endswith('\n'):
+        data += '\n'
     print(f'Writing result to <{destination_filename}>...', end=' ')
     with open(destination_filename, 'w') as fp:
         fp.write(data)
